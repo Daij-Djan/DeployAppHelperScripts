@@ -9,6 +9,25 @@ DIST_DIR="`pwd`/__releases/dist-$(date)"
 mkdir -p "$DIST_DIR"
 
 #=================
+# bump versions
+#=================
+
+#PLISTS
+PLISTS[0]="./subpath/to/plist_for_scheme1_and_1a.plist"
+#PLISTS[1]="./subpath/to/plist_for_scheme2_and_2a.plist"
+#PLISTS[2]="./subpath/to/plist_for_scheme3_and_3a.plist"
+
+#build & upload.
+for plist in "${PLISTS[@]}"
+do
+    echo "Set new version for plist: $file"
+
+	#increase the build no. AND increase the beta version
+	#(in RL you'd increase either or :D and Also if you use jenkins, try the J option to take its job's BUILD_NUMBER)
+    ./DeployAppHelperScripts/writeNewVersion.sh "$WORKSPACEDIR/$plist" "([0-9]*)"  1 I "(.* Beta_)([0-9]*)" 2 I
+done
+
+#=================
 # Crashlytics
 #=================
 
